@@ -68,6 +68,8 @@ export const CardForm = ({
     console.warn("card creation");
   };
 
+  const [bufferName, setBufferName] = useState("");
+
   const [isExportActive, setIsexportActive] = useState(false);
 
   return (
@@ -109,7 +111,8 @@ export const CardForm = ({
                       <Input
                         defaultValue={name}
                         {...field}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setBufferName(e.target.value)}
+                        onBlur={(e) => setName(bufferName)}
                       />
                     </FormControl>
                     <FormMessage />
