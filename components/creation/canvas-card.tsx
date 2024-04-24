@@ -41,6 +41,10 @@ export const CanvasCard = ({
   return (
     <NextReactP5Wrapper
       sketch={(p5) => {
+        let canvas: any;
+        let output: any;
+        let scale = 0.5;
+
         let imgBg: any;
         let imgDog: any;
         let font: any;
@@ -48,7 +52,8 @@ export const CanvasCard = ({
         let once = true;
 
         p5.setup = () => {
-          p5.createCanvas(630, 880);
+          output = p5.createGraphics(630 / 2, 880 / 2);
+          canvas = p5.createCanvas(630 / 2, 880 / 2);
           // font = p5.loadFont(inter.className);
           imgBg = p5.loadImage("./images/Frame3.png");
           if (imageSrc) {
@@ -58,25 +63,46 @@ export const CanvasCard = ({
 
         p5.draw = () => {
           p5.background(250);
+
+          output.clear();
+          output.push();
+          output.scale(scale);
+
           if (imageSrc) {
-            imgDog.resize(300, 0);
-            p5.image(imgDog, 0, 0);
+            imgDog.resize(300 / 0.5, 0);
+            output.image(imgDog, 630 / 2 - imgDog.width / 2, 48);
           }
-          p5.image(imgBg, 0, 0);
+          output.image(imgBg, 0, 0);
           // p5.textFont(font);
-          p5.textFont("Mirza Regular");
-          p5.textSize(25);
-          p5.text(dogName, 30, 42);
-          p5.textSize(23);
-          p5.text(age, 589, 42);
-          p5.textSize(25);
-          p5.text(race, 30, 472);
+          output.textFont("Mirza Regular");
+          output.textSize(25);
+          output.text(dogName, 30, 42);
+          output.textSize(23);
+          output.text(age, 589, 42);
+          output.textSize(25);
+          output.text(race, 30, 472);
 
           if (exportCard && once) {
-            once = false;
-            p5.saveCanvas(dogName.split(" ").join("-"), "jpg");
+            exportCardasPNG();
+            // p5.saveCanvas(dogName.split(" ").join("-"), "jpg");
           }
+
+          output.pop();
+
+          p5.image(output, 0, 0);
         };
+
+        function exportCardasPNG() {
+          once = false;
+          scale = 2;
+          output = p5.createGraphics(630 * scale, 880 * scale);
+          p5.draw();
+          p5.save(output, dogName.split(" ").join("-"), "jpg");
+
+          scale = 0.5;
+          output = p5.createGraphics(630 / 2, 880 / 2);
+          p5.draw();
+        }
       }}
     />
   );
