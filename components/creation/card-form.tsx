@@ -72,6 +72,7 @@ export const CardForm = ({
 
   const [isExportActive, setIsexportActive] = useState(false);
 
+  const [formInputsStatus, setFormInputsStatus] = useState(false);
   return (
     <Card className="shadow-sm md:mr-3">
       <CardHeader>
@@ -113,6 +114,7 @@ export const CardForm = ({
                         {...field}
                         onChange={(e) => setBufferName(e.target.value)}
                         onBlur={(e) => setName(bufferName)}
+                        disabled={formInputsStatus}
                       />
                     </FormControl>
                     <FormMessage />
@@ -127,7 +129,11 @@ export const CardForm = ({
                     <FormLabel>Race</FormLabel>
                     <FormControl>
                       {/* <Input placeholder="Golden Retriever" {...field} /> */}
-                      <Select value={race} onValueChange={(e) => setRace(e)}>
+                      <Select
+                        value={race}
+                        onValueChange={(e) => setRace(e)}
+                        disabled={formInputsStatus}
+                      >
                         <SelectTrigger className="w-[180px]">
                           <SelectValue placeholder="Race" />
                         </SelectTrigger>
@@ -160,6 +166,7 @@ export const CardForm = ({
                         onChange={(e) => {
                           setAge("" + e.target.value);
                         }}
+                        disabled={formInputsStatus}
                       />
                     </FormControl>
                     <FormDescription>
@@ -186,6 +193,7 @@ export const CardForm = ({
                             setImageSrc(URL.createObjectURL(e.target.files[0]));
                           }
                         }}
+                        disabled={formInputsStatus}
                       />
                     </FormControl>
                     <FormDescription>
@@ -206,9 +214,11 @@ export const CardForm = ({
         <Button
           onClick={(e) => {
             setExportCard(true);
-            setIsexportActive(false);
+            setIsexportActive(true);
+            setFormInputsStatus(true);
           }}
-          disabled={isExportActive}
+          disabled={false}
+          // disabled={isExportActive}
         >
           Exporter la carte
         </Button>
