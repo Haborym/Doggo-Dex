@@ -1,36 +1,24 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 import Image from "next/image";
-import referencePicture from "@/public/images/card_polo.png";
-// import { DialogTrigger } from "@/components/ui/dialog";
 
 interface CardListItemProps {
-  key: string;
+  url: string;
 }
 
 // TODO add the dialog when clicking on the picture
-export const CardListItem = ({ key }: CardListItemProps) => {
+export const CardListItem = ({ url }: CardListItemProps) => {
   return (
-    <Card className="shadow-sm m-2 md:m-4" key={key}>
-      <CardHeader>
-        <CardTitle>Polochon</CardTitle>
-        <CardDescription></CardDescription>
-      </CardHeader>
+    <Card className="shadow-sm m-2 md:m-4 py-4">
       <CardContent>
         <Image
-          src={referencePicture}
+          src={url}
           alt="Picture of the author"
           width={500}
           height={500}
           loading="lazy"
           placeholder="blur"
+          blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8v4ahnoEIwDiqkL4KAfAvFa+uwpmFAAAAAElFTkSuQmCC"
         />
       </CardContent>
       <CardFooter>
